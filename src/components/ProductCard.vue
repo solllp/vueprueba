@@ -1,30 +1,33 @@
 <script setup>
-const { producto } = defineProps({
+const props = defineProps({
   producto: Object
 })
 
 const emit = defineEmits(['comprar'])
 
 function comprarProducto() {
-  emit('comprar', producto)
+  emit('comprar', props.producto)
 }
 </script>
 
 <template>
   <div class="tarjeta">
-    <h2>{{ producto.nombre }}</h2>
+    <h2>{{ props.producto.nombre }}</h2>
 
-    <p>Precio: ${{ producto.precio }}</p>
+    <p>Precio: ${{ props.producto.precio }}</p>
 
-    <p>Stock disponible: {{ producto.stock }}</p>
+    <p>Stock disponible: {{ props.producto.stock }}</p>
 
-    <p v-if="producto.stock === 0" class="agotado">
+    <p
+      v-if="props.producto.stock === 0"
+      class="agotado"
+    >
       ❌ Producto agotado
     </p>
 
     <button
       @click="comprarProducto"
-      :disabled="producto.stock === 0"
+      :disabled="props.producto.stock === 0"
     >
       Comprar
     </button>
